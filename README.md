@@ -1,9 +1,10 @@
 # backpack-weight
 > a simple packing list that totals item weights.
+
 [demo]( https://improvshark.github.io/backpack-weight/ )
 
 ## todo
-
+  - store in session
   - add unit conversions
 
 ## Build Setup
