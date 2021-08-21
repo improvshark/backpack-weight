@@ -1,8 +1,8 @@
-<template lang="html">
+<template>
 <div id="newItem" class="row">
     <i  id="caret" class="fa fa-caret-down fa-fw cap" ></i>
-    <input id="item" class="primary" type="text" v-model="item.name" placeholder="Item"></input>
-    <input id="weight" class="secondary" type="number" v-model="item.weight" placeholder="0.0 lbs"></input>
+    <input id="item" class="primary" type="text" v-model="item.name" placeholder="Item">
+    <input id="weight" class="secondary" type="number" v-model="item.weight" placeholder="0.0 lbs">
     <button id="add" class="cap" type="button" @click="add"><i class="fa fa-plus"></i></button>
 </div>
 </template>

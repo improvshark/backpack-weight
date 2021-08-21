@@ -20,7 +20,7 @@
 <script>
 import newItem from './components/newItem';
 import list from './components/list';
-import './assets/styles.css';
+import '../public/styles.css';
 export default {
     name: 'app',
     components: {
