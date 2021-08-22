@@ -3,14 +3,14 @@
     <div class="paper">
         <new-item @add="add"></new-item>
         <list :items="filteredItems" @remove:item="remove" @update:item="update"></list>
-        <div id="footer" v-if="items.length>0">
-            <span id="leftOver">{{itemsLeft}} items left</span>
+        <div id="footer" v-if="count>0">
+            <span id="leftOver">{{countUnpacked}} items left</span>
             <span id="filter">
             <a :class="{active:filter=='all'}" @click="setFilter('all')">All</a>
             <a :class="{active:filter=='packed'}" @click="setFilter('packed')">packed</a>
             <a :class="{active:filter=='unpacked'}" @click="setFilter('unpacked')">unpacked</a>
           </span>
-            <span id="clear">total: {{total}}</span>
+            <span id="clear">total: {{totalWeight}}</span>
         </div>
     </div>
 
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import newItem from './components/newItem';
 import list from './components/list';
 import '../public/styles.css';
@@ -37,41 +39,37 @@ export default {
     },
     methods: {
         add(item) {
-            this.items.push(item);
+            this.$store.commit('push', {
+                key: item.name,
+                value: item,
+            })
         },
         remove(item) {
-            this.items.splice(this.items.indexOf(item), 1);
+            this.$store.commit('remove', {key: item.name})
         },
         update(item) {
-            item.packed = !item.packed;
+            this.$store.commit('set', {key: item.name, packed: !item.packed})
         },
         setFilter(filter) {
             this.filter = filter;
         }
     },
     computed: {
-        total() {
-            let total = 0;
-            this.filteredItems.forEach(elm => {
-                total += Number(elm.weight);
-            })
-            return total;
-        },
-        itemsLeft() {
-            let count = 0;
-            this.items.forEach(elm => {
-                if (!elm.packed)
-                    count++;
-            });
-            return count;
-        },
+        ...mapGetters([
+            'getListPacked',
+            'getListUnPacked',
+            'getList',
+            'countUnpacked',
+            'count',
+            'totalWeight',
+        ]),
         filteredItems() {
             if(this.filter == 'packed'){
-                return this.items.filter(elm => elm.packed )
+                return this.getListPacked
             } else if(this.filter == 'unpacked') {
-                return this.items.filter(elm => !elm.packed )
+                return this.getListUnPacked
             } else if(this.filter == 'all') {
-                return this.items;
+                return this.getList
             }
         }
     }

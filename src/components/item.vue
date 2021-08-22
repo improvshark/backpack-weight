@@ -8,7 +8,7 @@
     <i class="fa fa-circle-thin fa-stack-2x"></i>
   </span>
     <p :class="{completed:item.packed}" @click="toggle" class="name primary">{{item.name}}</p>
-    <p class="weight secondary" v-if="item.weight>0">{{item.weight}} <span>{{unit}}</span></p>
+    <p class="weight secondary" v-if="item">{{value}} <span>{{defaultUnit}}</span></p>
     <span class="delete cap"  @mouseover="deleteActive = true" @mouseleave="deleteActive = false">
         <i v-if="deleteActive" @click="deleteItem" class="fa fa-times"></i>
         <!-- <i v-else class="fa fa-times placeholder"></i> -->
@@ -17,12 +17,21 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { unit } from 'mathjs'
+
 export default {
     props: ['item'],
     data(){
         return {
             deleteActive: false,
-            unit: 'lbs'
+        }
+    },
+    computed: {
+        ...mapGetters(['defaultUnit']),
+        value() {
+            console.log('item before print', this.item)
+            return unit(this.item.value).toNumber(this.defaultUnit)
         }
     },
     methods: {

@@ -32,7 +32,13 @@
 
     "font-awesome": "^4.7.0",
 
-    "vue": "^3.2.4"
+    "mathjs": "^9.4.4",
+
+    "vue": "^3.2.4",
+
+    "vuex": "^4.0.2",
+
+    "vuex-persistedstate": "^4.0.0"
 
   }
 
