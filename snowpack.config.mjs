@@ -10,7 +10,15 @@ export default {
     },
   },
   plugins: [
-    '@snowpack/plugin-vue'
+    '@snowpack/plugin-vue',
+    '@snowpack/plugin-webpack',
+    // {
+    //   extendConfig: (config) => {
+    //     config.re
+    //     config.plugins.push(/* ... */);
+    //     return config;
+    //   },
+    // },
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
